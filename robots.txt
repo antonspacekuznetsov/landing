@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Host: chel.centerteplic.ru
