@@ -331,3 +331,8 @@ prc['fundament4l'] = 1600;
 prc['fundament6l'] = 2000;
 prc['fundament8l'] = 2400;
 prc['fundament10l'] = 2800;
+
+prc['poli4p'] = 2400;
+prc['poli6p'] = 3200;
+prc['poli8p'] = 4000;
+prc['poli10p'] = 4800;

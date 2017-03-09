@@ -295,7 +295,7 @@ function calculator_calculate(){
    else {
 	    $('#xline').removeClass("dslb");
    }
-   if (teplic === 's'){
+   if (teplic === 's' || teplic === 'e'){
 	   profile="20x20";
 	   $('#xline').addClass( "dslb" );
 	   $('#p40').addClass( "dslb" );
@@ -323,11 +323,11 @@ function calculator_calculate(){
     total+=$('.i-name-instal .checked').length?prc['montaj'+length]:0;
    // total+=$('.i-name-spk:eq(0) .checked').length?0:0;
    if(komplekt !== 'k'){
-    total+=$('.i-name-spk:eq(1) .checked').length?2000:0;
+    total+=$('.i-name-spk:eq(1) .checked').length?prc['poli' + length + 'p']:0;
    }
 	if (komplekt === "kof" || komplekt === "p"){
-	total+=$('.i-name-fundament:eq(0) .checked').length?prc['fundament'+length+"s"]:0;
-	total+=$('.i-name-fundament:eq(1) .checked').length?prc['fundament'+length+"l"]:0;
+	//total+=$('.i-name-fundament:eq(0) .checked').length?prc['fundament'+length+"s"]:0;
+	total+=$('.i-name-fundament:eq(1) .checked').length?400:0;
 	}
     //$('.i-name-spk:eq(1) > span:first-child')
     
