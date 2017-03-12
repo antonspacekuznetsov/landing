@@ -470,7 +470,7 @@ $(document).ready(function(){
         $('.popup-preorder').css({left:l+'px',top:t+'px'});
         $('.popup-wrapper').fadeIn(200); 
         $('.popup-preorder').fadeIn(200);*/
-		location.href="#kalcul";
+		$('.topLink').get(4).click();
     });
 
 // popup-order
@@ -1017,8 +1017,9 @@ $(document).ready(function(){
 
     // чеккедбокс
     $('.i-chk-box > span:first-child').click(function(){
-        $(this).toggleClass('checked');
-  
+		if ($('.i-name-komplekt > .checked').parent().text() === "Под ключ") {
+			$(this).toggleClass('checked');
+		}
     
     });
 
@@ -1220,7 +1221,22 @@ window.onload = function(e){
  
   //grab all form data  
   var formData = new FormData($(this)[0]);
- 
+  var priznak=false;
+  var error="";
+	if (this.FNAME.value ===""){
+		this.FNAME.setAttribute("class", "error");
+		this.FNAME.setAttribute("placeholder", "Введите имя");
+		priznak = true;
+	}
+	if (this.EMAIL.value ===""){
+		this.EMAIL.setAttribute("class", "error");
+		this.EMAIL.setAttribute("placeholder", "Введите email");
+		priznak = true;
+	}
+	if (priznak){
+		return false;
+	}
+	var obj = this;
   $.ajax({
     url: 'mailer.php?a=subscribe',
     type: 'POST',
@@ -1230,10 +1246,15 @@ window.onload = function(e){
     contentType: false,
     processData: false,
     success: function (returndata) {
-		show_success('Спасибо ', 'Вы успешно подписались');
+		seccess(obj);
     }
   });
  
   return false;
 });
+}
+function seccess(obj){
+			show_success('Спасибо ', 'Вы успешно подписались');
+		obj.FNAME.setAttribute("class", "");
+		obj.EMAIL.setAttribute("class", "");
 }
