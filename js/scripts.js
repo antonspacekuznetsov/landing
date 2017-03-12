@@ -243,8 +243,10 @@ function show_success(title,msg){
     $('.popup-success').css({left:l+'px',top:t+'px'});
     $('.popup-success .title').html(title);
     $('.popup-success .body').html(msg);
-//    $('.popup-wrapper').fadeIn(200);
+    //$('.popup-wrapper').fadeIn(200);
+	$('.popup').css({"display":""});
     $('.popup-success').fadeIn(200);
+	
     return false;
 }
 
@@ -463,11 +465,12 @@ $(document).ready(function(){
 
 // popup-preorder
     $('.btn-order').click(function(){
-        var l=Math.round($(document).width()/2-$('.popup-preorder').width()/2);
+      /*  var l=Math.round($(document).width()/2-$('.popup-preorder').width()/2);
         var t=$(document).scrollTop()+20;
         $('.popup-preorder').css({left:l+'px',top:t+'px'});
         $('.popup-wrapper').fadeIn(200); 
-        $('.popup-preorder').fadeIn(200);
+        $('.popup-preorder').fadeIn(200);*/
+		location.href="#kalcul";
     });
 
 // popup-order
@@ -541,6 +544,7 @@ $(document).ready(function(){
         $('.popup-quick-order').css({left:l+'px',top:t+'px'});
         $('.popup-wrapper').fadeIn(200);
         $('.popup-quick-order').fadeIn(200);
+		$('[name=quick_order_phone]').mask("+7 (999) 999-9999");
     });
 
 // popup-preorder select 1,2,3
@@ -570,6 +574,8 @@ $(document).ready(function(){
         $('.popup-one').css({left:l+'px',top:t+'px'});
         $('.popup-wrapper').fadeIn(200); 
         $('.popup-one').fadeIn(200);
+		//$('[name=one_phone]').mask("+7 (999) 999-9999");
+		
     });
     
 
@@ -702,19 +708,19 @@ $(document).ready(function(){
        
         if(!err){
             $.ajax({
-                url: '/ajax/send_one.php',
+                url: 'mailer.php',
           type: 'post',
           data: $("input[name='one_phone']"),
           dataType: 'html',
           success: function(html){
-/*
+
                     $('.popup').fadeOut(200);
                     $('input').val('').removeClass('error');
                     $('.red-arrow').remove();
                     $('.red-text').remove();
                     show_success('Спасибо за ваш заказ','Мы свяжемся с вами с 10 до 17 по вашему времени<br/>для подтверждения заказа и уточнения деталей.');
-*/
-                    location.href='thanks.php';
+
+                    //location.href='thanks.php';
           },
           error: function(xhr, ajaxOptions, thrownError) {
             alert(thrownError + "\r\n" + xhr.statusText + "\r\n" + xhr.responseText);
@@ -786,21 +792,21 @@ $(document).ready(function(){
    var adres=$("input[name='quick_order_adres']").val();
    var promo=$("input[name='quick_order_promo']").val();
       $.ajax({
-                url: '/ajax/1_order.php',
+                url: 'mailer.php',
           type: 'post',
-      data:{order:order,price:price, name:name, phone:phone, email:email, adres:adres, promo:promo},
+      data:{ergdf3:1,order:order,price:price, name:name, phone:phone, email:email, adres:adres, promo:promo},
         
           dataType: "html",
      
           success: function(html){
-/*
+
                     $('.popup').fadeOut(200);
                     $('input').val('').removeClass('error');
                     $('.red-arrow').remove();
                     $('.red-text').remove();
                     show_success('Спасибо за ваш заказ','Мы свяжемся с вами с 10 до 17 по вашему времени<br/>для подтверждения заказа и уточнения деталей.');
-*/
-                    location.href='thanks.php';
+
+                    //location.href='thanks.php';
           },
           error: function(xhr, ajaxOptions, thrownError) {
             alert(thrownError + "\r\n" + xhr.statusText + "\r\n" + xhr.responseText);
@@ -1204,3 +1210,30 @@ $(document).on("click", ".slider .nav span", function() { // slider click naviga
     sliderJS(obj, sl); // слайдим
     return false;
 });
+
+
+window.onload = function(e){
+	$("form#mc-embedded-subscribe-form, form#mc-embedded-subscribe-form2").submit(function(event){
+ 
+  //disable the default form submission
+  event.preventDefault();
+ 
+  //grab all form data  
+  var formData = new FormData($(this)[0]);
+ 
+  $.ajax({
+    url: 'mailer.php?a=subscribe',
+    type: 'POST',
+    data: formData,
+    async: false,
+    cache: false,
+    contentType: false,
+    processData: false,
+    success: function (returndata) {
+		show_success('Спасибо ', 'Вы успешно подписались');
+    }
+  });
+ 
+  return false;
+});
+}
